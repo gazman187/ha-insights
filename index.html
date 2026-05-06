@@ -14,10 +14,11 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     background: linear-gradient(180deg, #021b52 0%, #003fb8 100%);
     color: white;
+    overflow-x: hidden;
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1400px;
     margin: auto;
     padding: 60px 24px;
 }
@@ -50,11 +51,35 @@ h1 {
     line-height: 1.4;
 }
 
+.screenshots {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 18px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.screenshots img {
+    width: 180px;
+    max-width: 28vw;
+    border-radius: 34px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+
+.screenshots img:hover {
+    transform: translateY(-8px);
+}
+
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 24px;
-    margin-top: 40px;
+    margin-top: 60px;
 }
 
 .card {
@@ -86,23 +111,25 @@ a {
     color: white;
 }
 
-.screenshots {
-    margin-top: 60px;
-    display: flex;
-    justify-content: center;
-    gap: 28px;
-    flex-wrap: wrap;
-}
+@media (max-width: 900px) {
 
-.screenshots img {
-    width: 240px;
-    border-radius: 38px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
-    transition: transform 0.25s ease;
-}
+    h1 {
+        font-size: 48px;
+    }
 
-.screenshots img:hover {
-    transform: translateY(-8px);
+    .subtitle {
+        font-size: 22px;
+    }
+
+    .screenshots {
+        justify-content: flex-start;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .screenshots img {
+        width: 150px;
+    }
 }
 </style>
 </head>
@@ -124,13 +151,13 @@ a {
 
         <div class="screenshots">
 
-    <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot1.png">
+            <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot1.png">
 
-    <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot2.png">
+            <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot2.png">
 
-    <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot3.png">
+            <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot3.png">
 
-</div>
+        </div>
 
     </div>
 
