@@ -140,25 +140,72 @@ h1 {
     position: relative;
     display: flex;
     justify-content: center;
+    perspective: 1200px;
 }
 
 .phone-stack {
     position: relative;
-    width: min(420px, 90vw);
+    width: min(360px, 82vw);
+    animation: floatPhone 6s ease-in-out infinite;
 }
 
-.phone-main {
+.phone-frame {
+    position: relative;
+    padding: 14px;
+    border-radius: 54px;
+    background: linear-gradient(145deg, #1b2433, #05080f);
+    box-shadow:
+        0 45px 120px rgba(0,0,0,0.6),
+        inset 0 0 0 2px rgba(255,255,255,0.08);
+}
+
+.phone-frame::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92px;
+    height: 28px;
+    border-radius: 999px;
+    background: #05080f;
+    z-index: 3;
+}
+
+.phone-screen {
+    display: block;
     width: 100%;
-    border-radius: 44px;
-    box-shadow: 0 40px 120px rgba(0,0,0,0.55);
+    border-radius: 42px;
+    overflow: hidden;
 }
 
 .glow {
     position: absolute;
-    inset: 12%;
-    background: rgba(56,163,255,0.4);
+    inset: 10%;
+    background: rgba(56,163,255,0.45);
     filter: blur(90px);
     z-index: -1;
+    animation: pulseGlow 5s ease-in-out infinite;
+}
+
+@keyframes floatPhone {
+    0%, 100% {
+        transform: translateY(0) rotateX(0deg) rotateY(-6deg);
+    }
+    50% {
+        transform: translateY(-18px) rotateX(2deg) rotateY(6deg);
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        opacity: 0.55;
+        transform: scale(0.96);
+    }
+    50% {
+        opacity: 0.9;
+        transform: scale(1.08);
+    }
 }
 
 .section {
@@ -346,11 +393,17 @@ h1 {
     </div>
 
     <div class="hero-visual">
-        <div class="phone-stack">
-            <div class="glow"></div>
-            <img class="phone-main" src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot1.png" alt="HA Insights app screenshot">
+    <div class="phone-stack">
+        <div class="glow"></div>
+
+        <div class="phone-frame">
+            <img
+                class="phone-screen"
+                src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot1.png"
+                alt="HA Insights app screenshot">
         </div>
     </div>
+</div>
 </section>
 
 <section class="section" id="features">
