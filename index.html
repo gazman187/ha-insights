@@ -5,130 +5,302 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>HA Insights</title>
+<meta name="description" content="HA Insights helps Home Assistant users understand why automations ran, failed, or were blocked.">
 
 <link rel="redirect_uri" href="ha-insights://auth-callback">
 
 <style>
+:root {
+    --bg: #07111f;
+    --card: rgba(255,255,255,0.08);
+    --card-border: rgba(255,255,255,0.12);
+    --text: #ffffff;
+    --muted: rgba(255,255,255,0.72);
+    --blue: #38a3ff;
+    --cyan: #48d7ff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(180deg, #021b52 0%, #003fb8 100%);
-    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(72,215,255,0.28), transparent 34%),
+        radial-gradient(circle at top right, rgba(40,120,255,0.35), transparent 38%),
+        linear-gradient(180deg, #07111f 0%, #071b35 48%, #031020 100%);
+    color: var(--text);
     overflow-x: hidden;
 }
 
-.container {
-    max-width: 1400px;
+a {
+    color: inherit;
+}
+
+.nav {
+    max-width: 1180px;
+    margin: auto;
+    padding: 26px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.brand img {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+}
+
+.hero {
+    max-width: 1180px;
+    margin: auto;
+    padding: 60px 24px 80px;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.badge {
+    display: inline-flex;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(72,215,255,0.12);
+    border: 1px solid rgba(72,215,255,0.25);
+    color: #bcefff;
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+h1 {
+    font-size: clamp(46px, 7vw, 82px);
+    line-height: 0.96;
+    margin: 0;
+    letter-spacing: -0.06em;
+}
+
+.hero p {
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--muted);
+    max-width: 660px;
+    margin: 26px 0 34px;
+}
+
+.actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 22px;
+    border-radius: 16px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.button.primary {
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    color: #06111f;
+}
+
+.button.secondary {
+    border: 1px solid var(--card-border);
+    background: rgba(255,255,255,0.06);
+    color: white;
+}
+
+.hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.phone-stack {
+    position: relative;
+    width: min(420px, 90vw);
+}
+
+.phone-main {
+    width: 100%;
+    border-radius: 44px;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.55);
+}
+
+.glow {
+    position: absolute;
+    inset: 12%;
+    background: rgba(56,163,255,0.4);
+    filter: blur(90px);
+    z-index: -1;
+}
+
+.section {
+    max-width: 1180px;
     margin: auto;
     padding: 60px 24px;
 }
 
-.hero {
-    text-align: center;
-    padding-top: 40px;
-    padding-bottom: 60px;
+.section-header {
+    max-width: 720px;
+    margin-bottom: 32px;
 }
 
-.logo {
-    width: 120px;
-    border-radius: 28px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+.section h2 {
+    font-size: clamp(34px, 4vw, 54px);
+    line-height: 1.05;
+    margin: 0 0 14px;
+    letter-spacing: -0.04em;
 }
 
-h1 {
-    font-size: 64px;
-    margin-top: 30px;
-    margin-bottom: 12px;
-    font-weight: 800;
-    letter-spacing: -2px;
-}
-
-.subtitle {
-    font-size: 26px;
-    opacity: 0.92;
-    max-width: 700px;
-    margin: auto;
-    line-height: 1.4;
-}
-
-.screenshots {
-    margin-top: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 18px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 10px;
-}
-
-.screenshots img {
-    width: 180px;
-    max-width: 28vw;
-    border-radius: 34px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
-    transition: transform 0.25s ease;
-    flex-shrink: 0;
-}
-
-.screenshots img:hover {
-    transform: translateY(-8px);
+.section-header p {
+    color: var(--muted);
+    font-size: 20px;
+    line-height: 1.5;
 }
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
-    margin-top: 60px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
 }
 
 .card {
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(14px);
+    background: var(--card);
+    border: 1px solid var(--card-border);
     border-radius: 28px;
     padding: 28px;
-    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+    min-height: 210px;
 }
 
-.card h2 {
-    margin-top: 0;
+.card .icon {
+    font-size: 32px;
+    margin-bottom: 18px;
+}
+
+.card h3 {
     font-size: 24px;
+    margin: 0 0 10px;
+    letter-spacing: -0.03em;
 }
 
 .card p {
-    opacity: 0.9;
+    color: var(--muted);
+    line-height: 1.55;
+    margin: 0;
+}
+
+.gallery {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px 0 10px;
+}
+
+.gallery img {
+    width: 250px;
+    max-width: 30vw;
+    border-radius: 36px;
+    box-shadow: 0 32px 90px rgba(0,0,0,0.45);
+}
+
+.split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.panel {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--card-border);
+    border-radius: 30px;
+    padding: 32px;
+}
+
+.panel h3 {
+    font-size: 28px;
+    margin: 0 0 14px;
+}
+
+.panel p {
+    color: var(--muted);
     line-height: 1.6;
 }
 
 .footer {
-    text-align: center;
-    opacity: 0.75;
-    margin-top: 70px;
-    padding-bottom: 40px;
-}
-
-a {
-    color: white;
+    max-width: 1180px;
+    margin: auto;
+    padding: 50px 24px 70px;
+    color: rgba(255,255,255,0.55);
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 @media (max-width: 900px) {
-
-    h1 {
-        font-size: 48px;
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
     }
 
-    .subtitle {
-        font-size: 22px;
+    .hero p {
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .screenshots {
+    .actions {
+        justify-content: center;
+    }
+
+    .cards,
+    .split {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery {
+        overflow-x: auto;
         justify-content: flex-start;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 4px;
     }
 
-    .screenshots img {
-        width: 150px;
+    .gallery img {
+        width: 210px;
+        max-width: none;
+        flex-shrink: 0;
+    }
+
+    .nav-links {
+        display: none;
     }
 }
 </style>
@@ -136,82 +308,123 @@ a {
 
 <body>
 
-<div class="container">
+<nav class="nav">
+    <div class="brand">
+        <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/icon.png" alt="HA Insights icon">
+        <span>HA Insights</span>
+    </div>
 
-    <div class="hero">
+    <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#support">Support</a>
+    </div>
+</nav>
 
-        <img class="logo"
-        src="https://raw.githubusercontent.com/gazman187/ha-insights/main/icon.png">
+<main>
 
-        <h1>HA Insights</h1>
+<section class="hero">
+    <div>
+        <div class="badge">Built for Home Assistant users</div>
 
-        <div class="subtitle">
-            Understand why your Home Assistant automations ran, failed, or were blocked.
+        <h1>Stop guessing why automations failed.</h1>
+
+        <p>
+            HA Insights turns Home Assistant automation traces into clear explanations,
+            timelines, and suggested fixes — right from your iPhone.
+        </p>
+
+        <div class="actions">
+            <a class="button primary" href="#">Available on the App Store</a>
+            <a class="button secondary" href="#features">Explore features</a>
         </div>
+    </div>
 
-        <div class="screenshots">
-
-            <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot1.png">
-
-            <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot2.png">
-
-            <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot3.png">
-
+    <div class="hero-visual">
+        <div class="phone-stack">
+            <div class="glow"></div>
+            <img class="phone-main" src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot1.png" alt="HA Insights app screenshot">
         </div>
+    </div>
+</section>
 
+<section class="section" id="features">
+    <div class="section-header">
+        <h2>Clear answers for complex automations.</h2>
+        <p>
+            Quickly understand what triggered, what passed, what failed, and what to check next.
+        </p>
     </div>
 
     <div class="cards">
-
         <div class="card">
-            <h2>Automation Analysis</h2>
+            <div class="icon">✅</div>
+            <h3>Plain-English results</h3>
             <p>
-                View detailed automation traces and understand exactly what happened during every automation run.
+                See whether an automation ran, stopped, or skipped actions without digging through raw traces.
             </p>
         </div>
 
         <div class="card">
-            <h2>Suggested Fixes</h2>
+            <div class="icon">🔎</div>
+            <h3>Condition breakdowns</h3>
             <p>
-                Quickly identify failed conditions, skipped branches, and actionable recommendations.
+                Identify exactly which condition blocked execution and compare expected vs actual values.
             </p>
         </div>
 
         <div class="card">
-            <h2>Private & Secure</h2>
+            <div class="icon">💡</div>
+            <h3>Suggested fixes</h3>
             <p>
-                All automation data remains within your own Home Assistant environment.
-                No automation data is collected or stored externally.
+                Get concise next steps to help you fix common automation issues faster.
             </p>
         </div>
+    </div>
+</section>
 
+<section class="section">
+    <div class="section-header">
+        <h2>Designed for quick debugging.</h2>
+        <p>
+            Open an automation, review the result, follow the timeline, and understand what happened.
+        </p>
     </div>
 
-    <div class="cards" style="margin-top:24px;">
+    <div class="gallery">
+        <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot1.png" alt="Automation result screenshot">
+        <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot2.png" alt="Suggested fix screenshot">
+        <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot3.png" alt="Timeline screenshot">
+    </div>
+</section>
 
-        <div class="card">
-            <h2>Support</h2>
+<section class="section" id="privacy">
+    <div class="split">
+        <div class="panel">
+            <h3>Private by design</h3>
             <p>
-                Contact:<br><br>
-                hello@stealth-gray.com
+                HA Insights connects directly to your Home Assistant instance.
+                Automation data is not collected, sold, or stored externally.
             </p>
         </div>
 
-        <div class="card">
-            <h2>Privacy Policy</h2>
+        <div class="panel" id="support">
+            <h3>Support</h3>
             <p>
-                HA Insights does not collect, share, or sell personal information.
-                Authentication occurs directly with the user's Home Assistant instance.
+                For support, questions, or feedback, contact:
+                <br><br>
+                <a href="mailto:hello@stealth-gray.com">hello@stealth-gray.com</a>
             </p>
         </div>
-
     </div>
+</section>
 
-    <div class="footer">
-        © 2026 HA Insights
-    </div>
+</main>
 
-</div>
+<footer class="footer">
+    <div>© 2026 HA Insights</div>
+    <div>Not affiliated with or endorsed by Home Assistant.</div>
+</footer>
 
 </body>
 </html>
