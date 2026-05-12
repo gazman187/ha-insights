@@ -5,14 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Automation Insights for Home Assistant</title>
-
-<meta name="description"
-content="Automation Insights helps Home Assistant users understand why automations ran, failed, or were blocked.">
+<meta name="description" content="Automation Insights helps Home Assistant users understand why automations ran, failed, or were blocked.">
 
 <link rel="redirect_uri" href="ha-insights://auth-callback">
 
 <style>
-
 :root {
     --card: rgba(255,255,255,0.08);
     --card-border: rgba(255,255,255,0.12);
@@ -24,10 +21,6 @@ content="Automation Insights helps Home Assistant users understand why automatio
 
 * {
     box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
 }
 
 body {
@@ -74,6 +67,10 @@ a {
     gap: 24px;
     color: var(--muted);
     font-size: 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
 }
 
 .hero {
@@ -140,6 +137,7 @@ h1 {
     display: block;
 }
 
+/* HERO PHONE */
 .hero-visual {
     position: relative;
     display: flex;
@@ -162,11 +160,7 @@ h1 {
     height: 75%;
     left: -7.5%;
     top: 12%;
-    background:
-        radial-gradient(circle,
-        rgba(72,215,255,0.45),
-        rgba(56,163,255,0.08) 45%,
-        transparent 70%);
+    background: radial-gradient(circle, rgba(72,215,255,0.45), rgba(56,163,255,0.08) 45%, transparent 70%);
     filter: blur(35px);
     z-index: 0;
     animation: pulseGlow 5s ease-in-out infinite;
@@ -178,10 +172,7 @@ h1 {
     padding: 14px;
     border-radius: 54px;
     background:
-        linear-gradient(145deg,
-        #2e3746 0%,
-        #0b1019 45%,
-        #02040a 100%);
+        linear-gradient(145deg, #2e3746 0%, #0b1019 45%, #02040a 100%);
     box-shadow:
         0 45px 120px rgba(0,0,0,0.62),
         inset 0 0 0 2px rgba(255,255,255,0.10),
@@ -199,6 +190,7 @@ h1 {
     border-radius: 999px;
     background: #05070c;
     z-index: 4;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
 }
 
 .phone-screen-wrap {
@@ -212,6 +204,27 @@ h1 {
     display: block;
     width: 100%;
     height: auto;
+    border-radius: 42px;
+}
+
+@keyframes floatPhone {
+    0%, 100% {
+        transform: translateY(0) rotateX(0deg) rotateY(-7deg);
+    }
+    50% {
+        transform: translateY(-18px) rotateX(2deg) rotateY(5deg);
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(0.96);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
 }
 
 .section {
@@ -250,6 +263,7 @@ h1 {
     border-radius: 28px;
     padding: 28px;
     backdrop-filter: blur(18px);
+    min-height: 210px;
 }
 
 .card .icon {
@@ -260,11 +274,13 @@ h1 {
 .card h3 {
     font-size: 24px;
     margin: 0 0 10px;
+    letter-spacing: -0.03em;
 }
 
 .card p {
     color: var(--muted);
     line-height: 1.55;
+    margin: 0;
 }
 
 .gallery {
@@ -317,30 +333,7 @@ h1 {
     border-top: 1px solid rgba(255,255,255,0.1);
 }
 
-@keyframes floatPhone {
-    0%, 100% {
-        transform: translateY(0) rotateX(0deg) rotateY(-7deg);
-    }
-
-    50% {
-        transform: translateY(-18px) rotateX(2deg) rotateY(5deg);
-    }
-}
-
-@keyframes pulseGlow {
-    0%, 100% {
-        opacity: 0.6;
-        transform: scale(0.96);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.08);
-    }
-}
-
 @media (max-width: 900px) {
-
     .hero {
         grid-template-columns: 1fr;
         text-align: center;
@@ -385,19 +378,14 @@ h1 {
         display: none;
     }
 }
-
 </style>
 </head>
 
 <body>
 
 <nav class="nav">
-
     <div class="brand">
-        <img
-        src="https://raw.githubusercontent.com/gazman187/ha-insights/main/icon.png"
-        alt="Automation Insights icon">
-
+        <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/icon.png" alt="Automation Insights icon">
         <span>Automation Insights</span>
     </div>
 
@@ -406,22 +394,15 @@ h1 {
         <a href="#privacy">Privacy</a>
         <a href="#support">Support</a>
     </div>
-
 </nav>
 
 <main>
 
 <section class="hero">
-
     <div>
+        <div class="badge">Built for Home Assistant users</div>
 
-        <div class="badge">
-            Built for Home Assistant users
-        </div>
-
-        <h1>
-            Understand your automations faster.
-        </h1>
+        <h1>Understand your automations faster.</h1>
 
         <p>
             Automation Insights explains Home Assistant traces,
@@ -430,91 +411,86 @@ h1 {
         </p>
 
         <div class="actions">
-
-            <a
-            href="https://apps.apple.com/app/id6766668189"
-            target="_blank">
-
+            <a href="https://apps.apple.com/app/id6766668189" target="_blank" aria-label="Download Automation Insights on the App Store">
                 <img
-                class="app-store-badge"
-                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                alt="Download on the App Store">
-
+                    class="app-store-badge"
+                    src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                    alt="Download on the App Store">
             </a>
 
-            <a
-            class="button secondary"
-            href="https://www.youtube.com/shorts/ihRKKMyKjt4"
-            target="_blank">
-
-                Watch Demo
-
-            </a>
-
+            <a class="button secondary" href="#features">Explore features</a>
         </div>
-
     </div>
 
     <div class="hero-visual">
-
         <div class="phone-stack">
-
             <div class="glow"></div>
 
             <div class="phone-frame">
-
                 <div class="phone-screen-wrap">
-
-                    <iframe
-                        width="100%"
-                        height="740"
-                        src="https://www.youtube.com/embed/ihRKKMyKjt4"
-                        title="Automation Insights YouTube Short"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen
-                        style="
-                            display:block;
-                            width:100%;
-                            height:740px;
-                            border:none;
-                            background:#000;">
-                    </iframe>
-
+                    <img
+                        class="phone-screen"
+                        src="https://raw.githubusercontent.com/gazman187/ha-insights/main/hero-screen.png"
+                        alt="Automation Insights app screenshot">
                 </div>
-
             </div>
-
         </div>
+    </div>
+</section>
+
+<!-- MINIMAL YOUTUBE SHORT LINK -->
+
+<section class="section" style="padding-top:10px; padding-bottom:10px;">
+
+    <div style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:18px;
+        flex-wrap:wrap;
+        background:rgba(255,255,255,0.04);
+        border:1px solid rgba(255,255,255,0.08);
+        border-radius:24px;
+        padding:22px 28px;
+        max-width:900px;
+        margin:auto;
+        backdrop-filter: blur(14px);
+    ">
+
+        <div style="
+            font-size:18px;
+            color:rgba(255,255,255,0.85);
+        ">
+            Watch a quick demo of Automation Insights
+        </div>
+
+        <a
+            href="https://www.youtube.com/shorts/ihRKKMyKjt4"
+            target="_blank"
+            class="button secondary"
+            style="padding:12px 18px;">
+            Watch YouTube Short
+        </a>
 
     </div>
 
 </section>
 
 <section class="section" id="features">
-
     <div class="section-header">
-
-        <h2>
-            Clear answers for complex automations.
-        </h2>
-
+        <h2>Clear answers for complex automations.</h2>
         <p>
             Quickly understand what triggered,
             what passed,
             what failed,
             and what to check next.
         </p>
-
     </div>
 
     <div class="cards">
-
         <div class="card">
             <div class="icon">✅</div>
-
             <h3>Plain-English results</h3>
-
             <p>
                 See whether an automation ran,
                 stopped,
@@ -524,9 +500,7 @@ h1 {
 
         <div class="card">
             <div class="icon">🔎</div>
-
             <h3>Condition breakdowns</h3>
-
             <p>
                 Identify exactly which condition blocked execution
                 and compare expected vs actual values.
@@ -535,56 +509,36 @@ h1 {
 
         <div class="card">
             <div class="icon">💡</div>
-
             <h3>Suggested fixes</h3>
-
             <p>
                 Get concise next steps to help fix automation issues faster.
             </p>
         </div>
-
     </div>
-
 </section>
 
 <section class="section">
-
     <div class="section-header">
-
-        <h2>
-            Designed for quick debugging.
-        </h2>
-
+        <h2>Designed for quick debugging.</h2>
         <p>
             Open an automation,
             review the result,
             follow the timeline,
             and understand what happened.
         </p>
-
     </div>
 
     <div class="gallery">
-
-        <img
-        src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot1.png">
-
-        <img
-        src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot2.png">
-
-        <img
-        src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot3.png">
-
+        <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot1.png">
+        <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot2.png">
+        <img src="https://raw.githubusercontent.com/gazman187/ha-insights/main/screenshot3.png">
     </div>
-
 </section>
 
 <section class="section" id="privacy">
-
     <div class="split">
 
         <div class="panel">
-
             <h3>Private by design</h3>
 
             <p>
@@ -595,11 +549,9 @@ h1 {
                 sold,
                 or stored externally.
             </p>
-
         </div>
 
         <div class="panel" id="support">
-
             <h3>Support</h3>
 
             <p>
@@ -608,29 +560,23 @@ h1 {
                 or feedback:
                 <br><br>
 
-                <a href="mailto:info@stealth-gray.com">
-                    info@stealth-gray.com
+                <a href="mailto:hello@stealth-gray.com">
+                    hello@stealth-gray.com
                 </a>
             </p>
-
         </div>
 
     </div>
-
 </section>
 
 </main>
 
 <footer class="footer">
-
-    <div>
-        © 2026 Automation Insights
-    </div>
+    <div>© 2026 Automation Insights</div>
 
     <div>
         Not affiliated with or endorsed by Home Assistant.
     </div>
-
 </footer>
 
 </body>
