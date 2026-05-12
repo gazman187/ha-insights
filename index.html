@@ -78,8 +78,8 @@ a {
     margin: auto;
     padding: 40px 24px 40px;
     display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 60px;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 40px;
     align-items: center;
 }
 
@@ -141,15 +141,15 @@ h1 {
 .hero-visual {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     perspective: 1200px;
-    min-height: 420px;
+    min-height: 0;
 }
 
 .phone-stack {
     position: relative;
-    width: min(300px, 70vw);
+    width: 320px;
     transform-style: preserve-3d;
     animation: floatPhone 6s ease-in-out infinite;
 }
