@@ -77,10 +77,13 @@ a {
     max-width: 1180px;
     margin: auto;
     padding: 40px 24px 40px;
+
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 420px;
+    grid-template-columns: minmax(0,1fr) 360px;
+
     gap: 40px;
-    align-items: center;
+
+    align-items: start;
 }
 
 .badge {
@@ -142,14 +145,14 @@ h1 {
     position: relative;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-start;
     perspective: 1200px;
-    min-height: 0;
 }
 
 .phone-stack {
     position: relative;
-    width: 320px;
+    width: 280px;
+    margin-top: 0;
     transform-style: preserve-3d;
     animation: floatPhone 6s ease-in-out infinite;
 }
